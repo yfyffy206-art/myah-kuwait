@@ -9,6 +9,14 @@
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/e74b64fb30991c80.jpg</image:loc><image:title>25 شدة - أبراج 200 مل</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/68a73822a036b745.jpg</image:loc><image:title>أبراج 25 شدة 330مل*20</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/2286ebc9658c1546.jpg</image:loc><image:title>أبراج 20 شدات 500مل( شد*12 )</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/bc7cea7816a524fb.jpg</image:loc><image:title>أبراج قلوي 10 كرتون 330مل (20*1)@10دك</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/0e7b77ea9cc12508.jpg</image:loc><image:title>أبراج 5 جالون 10قناني</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/e0a6cbac0c00d995.jpg</image:loc><image:title>مناديل أبراج (1 علبة يحتوي على 2 منديل مزوج)</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/df4999ac1f032325.jpg</image:loc><image:title>ابراج 10كرتون دبدوب 200مل*20 @6د.ك</image:title></image:image>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/af13a4c1acb1a5ee.jpg</image:loc><image:title>عرض خاص أبراج 20 كرتون 1.5لتر (6*1)@10.0 دك</image:title></image:image>
   </url>
   <url>
     <loc>https://althenayanfarms.app/prices</loc>
@@ -49,5 +57,239 @@
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/returns.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/returns.html"/>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-3985601c-132835/25-shdh---abraj-200-ml</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-3985601c-132835/25-shdh---abraj-200-ml"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-3985601c-132835/25-shdh---abraj-200-ml"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/e74b64fb30991c80.jpg</image:loc><image:title>25 شدة - أبراج 200 مل</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-6f65474d-889055/abraj-25-shdh-330ml20</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-6f65474d-889055/abraj-25-shdh-330ml20"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-6f65474d-889055/abraj-25-shdh-330ml20"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/68a73822a036b745.jpg</image:loc><image:title>أبراج 25 شدة 330مل*20</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-6877ea81-654744/abraj-20-shdat-500ml-shd12</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-6877ea81-654744/abraj-20-shdat-500ml-shd12"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-6877ea81-654744/abraj-20-shdat-500ml-shd12"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/2286ebc9658c1546.jpg</image:loc><image:title>أبراج 20 شدات 500مل( شد*12 )</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-ef768381-915757/abraj-qlwy-10-krtwn-330ml-20110dk</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-ef768381-915757/abraj-qlwy-10-krtwn-330ml-20110dk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-ef768381-915757/abraj-qlwy-10-krtwn-330ml-20110dk"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/bc7cea7816a524fb.jpg</image:loc><image:title>أبراج قلوي 10 كرتون 330مل (20*1)@10دك</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-8980ee4a-571437/abraj-5-jalwn-10qnany</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-8980ee4a-571437/abraj-5-jalwn-10qnany"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-8980ee4a-571437/abraj-5-jalwn-10qnany"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/0e7b77ea9cc12508.jpg</image:loc><image:title>أبراج 5 جالون 10قناني</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-d4e33633-928744/mnadyl-abraj-1-albh-yhtwy-ala-2-mndyl-mzwj</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-d4e33633-928744/mnadyl-abraj-1-albh-yhtwy-ala-2-mndyl-mzwj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-d4e33633-928744/mnadyl-abraj-1-albh-yhtwy-ala-2-mndyl-mzwj"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/e0a6cbac0c00d995.jpg</image:loc><image:title>مناديل أبراج (1 علبة يحتوي على 2 منديل مزوج)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-0da76d01-879536/abraj-10krtwn-dbdwb-200ml20-6dk</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-0da76d01-879536/abraj-10krtwn-dbdwb-200ml20-6dk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-0da76d01-879536/abraj-10krtwn-dbdwb-200ml20-6dk"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/df4999ac1f032325.jpg</image:loc><image:title>ابراج 10كرتون دبدوب 200مل*20 @6د.ك</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-d0266d2c-592151/ard-khas-abraj-20-krtwn-15ltr-61100-dk</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-d0266d2c-592151/ard-khas-abraj-20-krtwn-15ltr-61100-dk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-d0266d2c-592151/ard-khas-abraj-20-krtwn-15ltr-61100-dk"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/af13a4c1acb1a5ee.jpg</image:loc><image:title>عرض خاص أبراج 20 كرتون 1.5لتر (6*1)@10.0 دك</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-55a8a910-262192/myah-abraj-200ml---1-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-55a8a910-262192/myah-abraj-200ml---1-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-55a8a910-262192/myah-abraj-200ml---1-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/bda5c60116960abf.jpg</image:loc><image:title>مياه أبراج 200مل - 1 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-55a8a910-262194/myah-abraj-200ml---6-kratyn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-55a8a910-262194/myah-abraj-200ml---6-kratyn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-55a8a910-262194/myah-abraj-200ml---6-kratyn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/bda5c60116960abf.jpg</image:loc><image:title>مياه أبراج 200مل - 6 كراتين</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-55a8a910-262197/myah-abraj-200ml---25-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-55a8a910-262197/myah-abraj-200ml---25-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-55a8a910-262197/myah-abraj-200ml---25-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/bda5c60116960abf.jpg</image:loc><image:title>مياه أبراج 200مل - 25 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-51b84f9c-262185/myah-abraj-330ml---1-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-51b84f9c-262185/myah-abraj-330ml---1-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-51b84f9c-262185/myah-abraj-330ml---1-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/3c971ea1716eb5b3.jpg</image:loc><image:title>مياه أبراج 330مل - 1 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-51b84f9c-262188/myah-abraj-330ml---6-kratyn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-51b84f9c-262188/myah-abraj-330ml---6-kratyn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-51b84f9c-262188/myah-abraj-330ml---6-kratyn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/3c971ea1716eb5b3.jpg</image:loc><image:title>مياه أبراج 330مل - 6 كراتين</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-51b84f9c-555344/myah-abraj-330ml---25-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-51b84f9c-555344/myah-abraj-330ml---25-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-51b84f9c-555344/myah-abraj-330ml---25-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/3c971ea1716eb5b3.jpg</image:loc><image:title>مياه أبراج 330مل - 25 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-f747cea1-749457/myah-abraj---500ml---112---1-shdh</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-f747cea1-749457/myah-abraj---500ml---112---1-shdh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-f747cea1-749457/myah-abraj---500ml---112---1-shdh"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/9213f40d1ad675c9.jpg</image:loc><image:title>مياه أبراج - 500مل - (1×12) - 1 شدة</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-f747cea1-749458/myah-abraj---500ml---112---6-shdat</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-f747cea1-749458/myah-abraj---500ml---112---6-shdat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-f747cea1-749458/myah-abraj---500ml---112---6-shdat"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/9213f40d1ad675c9.jpg</image:loc><image:title>مياه أبراج - 500مل - (1×12) - 6 شدات</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-f747cea1-940019/myah-abraj---500ml---112---25-shdh</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-f747cea1-940019/myah-abraj---500ml---112---25-shdh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-f747cea1-940019/myah-abraj---500ml---112---25-shdh"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/c58831d5e95f410e.jpg</image:loc><image:title>مياه أبراج - 500مل - (1×12) - 25 شدة</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-282a1001-509812/myah-abraj-15-ltr-b6-abwat-balshd---1-shd-6-abwh-balshd</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-282a1001-509812/myah-abraj-15-ltr-b6-abwat-balshd---1-shd-6-abwh-balshd"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-282a1001-509812/myah-abraj-15-ltr-b6-abwat-balshd---1-shd-6-abwh-balshd"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/af13a4c1acb1a5ee.jpg</image:loc><image:title>مياه أبراج 1.5 لتر ب6 عبوات بالشد - 1 شد (6 عبوة بالشد)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-282a1001-579449/myah-abraj-15-ltr-b6-abwat-balshd---6-shdat-6-abwat-balshdh</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-282a1001-579449/myah-abraj-15-ltr-b6-abwat-balshd---6-shdat-6-abwat-balshdh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-282a1001-579449/myah-abraj-15-ltr-b6-abwat-balshd---6-shdat-6-abwat-balshdh"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/a7297de6e2d88c09.jpg</image:loc><image:title>مياه أبراج 1.5 لتر ب6 عبوات بالشد - 6 شدات (6 عبوات بالشدة)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-1816f963-262208/myah-abraj-15-ltr---1-krtwn-12-abwh-balkrtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-1816f963-262208/myah-abraj-15-ltr---1-krtwn-12-abwh-balkrtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-1816f963-262208/myah-abraj-15-ltr---1-krtwn-12-abwh-balkrtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/2002c4de848e388f.jpg</image:loc><image:title>مياه أبراج 1.5 لتر - 1 كرتون (12 عبوة بالكرتون)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-1816f963-262213/myah-abraj-15-ltr---6-kratyn-12-abwh-balkrtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-1816f963-262213/myah-abraj-15-ltr---6-kratyn-12-abwh-balkrtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-1816f963-262213/myah-abraj-15-ltr---6-kratyn-12-abwh-balkrtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/387fca4c98af6d53.jpg</image:loc><image:title>مياه أبراج 1.5 لتر - 6 كراتين (12 عبوة بالكرتون)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-1816f963-262218/myah-abraj-15-ltr---12krtwn-12-abwh-balkrtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-1816f963-262218/myah-abraj-15-ltr---12krtwn-12-abwh-balkrtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-1816f963-262218/myah-abraj-15-ltr---12krtwn-12-abwh-balkrtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/387fca4c98af6d53.jpg</image:loc><image:title>مياه أبراج 1.5 لتر - 12كرتون (12 عبوة بالكرتون)</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-53318298-760603/myah-abraj---200ml---120-dbdwb---1-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-53318298-760603/myah-abraj---200ml---120-dbdwb---1-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-53318298-760603/myah-abraj---200ml---120-dbdwb---1-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/df4999ac1f032325.jpg</image:loc><image:title>مياه أبراج - 200مل - (1×20) دبدوب - 1 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-53318298-760604/myah-abraj---200ml---120-dbdwb---6-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-53318298-760604/myah-abraj---200ml---120-dbdwb---6-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-53318298-760604/myah-abraj---200ml---120-dbdwb---6-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/88ddd2b0452ac415.jpg</image:loc><image:title>مياه أبراج - 200مل - (1×20) دبدوب - 6 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-53318298-760605/myah-abraj---200ml---120-dbdwb---25-krtwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-53318298-760605/myah-abraj---200ml---120-dbdwb---25-krtwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-53318298-760605/myah-abraj---200ml---120-dbdwb---25-krtwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/88ddd2b0452ac415.jpg</image:loc><image:title>مياه أبراج - 200مل - (1×20) دبدوب - 25 كرتون</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://althenayanfarms.app/product/ab-48d79b3c-32137/add-1-myah-abraj-hjm-5-jalwn</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://althenayanfarms.app/product/ab-48d79b3c-32137/add-1-myah-abraj-hjm-5-jalwn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://althenayanfarms.app/product/ab-48d79b3c-32137/add-1-myah-abraj-hjm-5-jalwn"/>
+    <image:image><image:loc>https://althenayanfarms.app/assets/images/products/0e7b77ea9cc12508.jpg</image:loc><image:title>عدد 1 مياه أبراج حجم 5 جالون</image:title></image:image>
   </url>
 </urlset>
