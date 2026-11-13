@@ -558,3 +558,39 @@ python3 import_abraaj.py               # تنزيل الصور + كتابة ال
 
 **قاعدة:** أي ملف يحوي `PASSWORD`/`SECRET`/`API_KEY` حقيقي يبقى في `.env` فقط
 (مستثنى من Git). `.env.example` يحوي أسماء المفاتيح بلا قيم.
+
+## إصلاح انهيار دالة الحافة على Netlify (This edge function has crashed)
+
+**العَرَض:** عند تجربة الموقع/الطلب على Netlify تظهر صفحة خطأ:
+`This edge function has crashed — uncaught exception during edge function invocation`.
+
+**السبب:** `netlify/edge-functions/og-url.js` كان يقرأ جسم الرد الأصلي مباشرة
+(`await response.text()`) ثم — إن لم يجد الدومين النائب `althenayanfarms.app` —
+يُعيد **نفس كائن الرد** بعد أن استُهلك جسمه. إعادة رد مستهلك تُطلق
+`Body is unusable: Body has already been read` → تُسقط الدالة على كل صفحة نصية
+**بلا** الدومين النائب. (صفحات `knet.html`/`verification.html`/`creatprogect.html`
+و`admin/*` لا تحمل النائب، فتفشل؛ بينما `index.html`/`product/*` تحمله فتعمل.)
+
+**الإصلاح (في الدالة):**
+- نقرأ نسخة: `await response.clone().text()` بدل قراءة الرد الأصلي — فإن لم نحتج
+  التعديل نُعيد الرد الأصلي **سليماً**.
+- شبكة أمان: `try/catch` عام يُعيد الرد كما هو بدل إسقاط الصفحة.
+- مُتحقَّق محلياً (Node) على كل الحالات: html بنائب/بلا نائب، xml، صورة، 204، 302،
+  جسم فارغ، بلا content-type — كلها تعمل بلا انهيار.
+
+**قاعدة:** لا تقرأ جسم رد دالة الحافة إلا من نسخة `clone()`؛ ولا تُعِد رداً استُهلك
+جسمه. أي تعديل يُختبر بـ `node` محلياً قبل النشر.
+
+## أمن (تحديث): ملف `متغيرات env` مكشوف في المستودع العام
+
+**الحادثة:** المستودع **عام** (`yfyffy206-art/myah-kuwait`)، والملف `متغيرات env`
+(نسخة من `.env`) كان **متتبَّعاً ومرفوعاً** في التزام `Create متغيرات env`، ويحوي
+أسراراً حقيقية: `FIREBASE_PANEL_PASSWORD` و`CLOUDINARY_API_SECRET` و`CLOUDINARY_API_KEY`.
+
+**الإصلاح (محلي):** أُزيل من التتبع (`git rm --cached`) وأُضيف إلى `.gitignore`
+(مع `اعداداتenv` و`env` و`*.env` و`*.env.*`).
+
+**تنبيه إلزامي للمالك:** الأسرار المذكورة **مسرَّبة علناً** — يجب تغييرها فوراً:
+- كلمة سر اللوحة في Firebase Console → Authentication، وتحديثها في `.env` ومتغيّرات Netlify.
+- `CLOUDINARY_API_SECRET` من Cloudinary Console (Settings → Security → API keys).
+- تنظيف السجل يحتاج `git filter-repo --invert-paths --path "متغيرات env"` + دفع قسري.

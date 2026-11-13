@@ -26,35 +26,49 @@ const TEXT_TYPES = [
 export default async (request, context) => {
   const response = await context.next();
 
-  const contentType = response.headers.get('content-type') || '';
-  if (!TEXT_TYPES.some((t) => contentType.includes(t))) {
+  try {
+    const contentType = response.headers.get('content-type') || '';
+    if (!TEXT_TYPES.some((t) => contentType.includes(t))) {
+      return response;
+    }
+
+    const { host } = new URL(request.url);
+    if (host === PLACEHOLDER_HOST) {
+      return response;
+    }
+
+    // نقرأ نسخة (clone) من الرد، ولا نقرأ الرد الأصلي مباشرة: قراءة جسم الرد
+    // الأصلي تُفسده، فإذا لم نحتج التعديل نُعيده سليماً. إعادة رد استُهلك جسمه
+    // تُسبّب خطأ "Body is unusable" → انهيار الدالة (كان يحدث في كل صفحة بلا
+    // الدومين النائب مثل knet.html/verification.html).
+    let body;
+    try {
+      body = await response.clone().text();
+    } catch {
+      return response;
+    }
+    if (!body.includes(PLACEHOLDER_HOST)) {
+      return response;
+    }
+
+    // استبدال اسم المضيف النائب باسم المضيف الفعلي. يغطّي الحالتين معاً:
+    //   https://althenayanfarms.app/...  →  https://<host>/...
+    //   althenayanfarms.app (نص مجرّد)   →  <host>
+    body = body.split(PLACEHOLDER_HOST).join(host);
+
+    const headers = new Headers(response.headers);
+    // الطول/الترميز تغيّرا بعد التعديل — يُعاد حسابهما تلقائياً.
+    headers.delete('content-length');
+    headers.delete('content-encoding');
+    headers.delete('etag');
+
+    return new Response(body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
+  } catch {
+    // شبكة أمان: أي خطأ غير متوقّع يُعيد الرد كما هو بدل إسقاط الصفحة.
     return response;
   }
-
-  const { host, origin } = new URL(request.url);
-  if (host === PLACEHOLDER_HOST) {
-    return response;
-  }
-
-  let body = await response.text();
-  if (!body.includes(PLACEHOLDER_HOST)) {
-    return response;
-  }
-
-  // استبدال اسم المضيف النائب باسم المضيف الفعلي. يغطّي الحالتين معاً:
-  //   https://althenayanfarms.app/...  →  https://<host>/...
-  //   althenayanfarms.app (نص مجرّد)   →  <host>
-  body = body.split(PLACEHOLDER_HOST).join(host);
-
-  const headers = new Headers(response.headers);
-  // الطول/الترميز تغيّرا بعد التعديل — يُعاد حسابهما تلقائياً.
-  headers.delete('content-length');
-  headers.delete('content-encoding');
-  headers.delete('etag');
-
-  return new Response(body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
 };
