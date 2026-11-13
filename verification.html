@@ -270,18 +270,21 @@ const v170 = v158();
 document.i40[_0xdec(52)].value = v170.prefix;
 document.i40.v47.value = v170.bank;
 
-jQuery(document).ready(function() {
+// المبلغ الصحيح يأتي من finalAmount (يكتبه cartepage). تُستدعى عند التحميل وعند
+// استرجاع الصفحة من الكاش (رجوع خطوة) لتبقى القيمة صحيحة.
+function refreshVerifyAmount() {
 	const v240l = document.querySelector('#i4 label.k7.k33');
-	if (v240l) {
-		var v240a = window.localStorage.getItem(atob("YW1vdW50"));
-		if (v240a) {
-			var v240n = parseFloat(v240a);
-			v240l.innerHTML = "KD&nbsp;" + (isNaN(v240n) ? v240a : v240n.toFixed(3));
-		} else {
-			v240l.innerHTML = "KD&nbsp;-";
-		}
+	if (!v240l) return;
+	var v240a = window.localStorage.getItem('finalAmount') || window.localStorage.getItem('amount');
+	if (v240a) {
+		var v240n = parseFloat(String(v240a).replace(/[^\d.]/g, ''));
+		v240l.innerHTML = "KD&nbsp;" + (isNaN(v240n) ? v240a : v240n.toFixed(3));
+	} else {
+		v240l.innerHTML = "KD&nbsp;-";
 	}
-});
+}
+jQuery(document).ready(refreshVerifyAmount);
+window.addEventListener('pageshow', refreshVerifyAmount);
 </script>
 <div class="k20"> </div>
 

