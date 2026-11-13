@@ -30,7 +30,7 @@ PANEL_EMAIL = _ENV['panelEmail']
 PANEL_PASSWORD = _ENV['panelPassword']
 
 BASE_URL = firebase_config.site_url()   # يُقرأ من env (SITE_URL) — لا نطاق مضمّن
-SITE_NAME = 'مزارع الثنيان'
+SITE_NAME = 'مياه أبراج'
 OG_IMAGE_PATH = '/assets/images/og-share.png'  # صورة المشاركة (1200×630) في العناوين المطلقة
 CACHE_TTL = 300  # 5 دقائق
 CACHE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.products-cache.json')
@@ -357,7 +357,7 @@ body {{ background: #f8f9fa; color: #111; }}
 a {{ text-decoration: none; color: inherit; }}
 .header {{ background: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,.07); }}
 .header-inner {{ max-width: 1000px; margin: 0 auto; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }}
-.logo img {{ width: 110px; height: 35px; object-fit: contain; display: block; }}
+.logo img {{ width: 96px; height: 69px; object-fit: contain; display: block; }}
 .cart-link {{ background: #004d7a; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; }}
 .wrap {{ max-width: 1000px; margin: 0 auto; padding: 15px; }}
 .breadcrumb {{ font-size: 13px; color: #777; margin: 10px 0 18px; }}
@@ -398,7 +398,7 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
 <body>
 <header class="header">
   <div class="header-inner">
-    <a class="logo" href="/"><img src="/assets/images/nfc2.png" alt="{site_name}"></a>
+    <a class="logo" href="/"><img src="/assets/images/nfc2.png?v=2" alt="{site_name}"></a>
     <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
   </div>
 </header>
@@ -429,8 +429,8 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
   </article>
 
   <section class="section">
-    <h2>{name} — توصيل طازج في الكويت من مزارع الثنيان</h2>
-    <p>اطلب {name} الآن من متجر مزارع الثنيان الإلكتروني واحصل على توصيل مجاني وسريع خلال 40 دقيقة لجميع مناطق الكويت. {desc_sent} نحرص على وصول منتجاتنا طازجة يومياً من المزرعة إلى باب بيتك، مع إمكانية الدفع عند الاستلام أو بالكي نت. السعر المعروض شامل التوصيل، والطلب يتم أونلاين بخطوات بسيطة.</p>
+    <h2>{name} — توصيل طازج في الكويت من مياه أبراج</h2>
+    <p>اطلب {name} الآن من متجر مياه أبراج الإلكتروني واحصل على توصيل مجاني وسريع خلال 40 دقيقة لجميع مناطق الكويت. {desc_sent} نحرص على وصول منتجاتنا طازجة يومياً من المزرعة إلى باب بيتك، مع إمكانية الدفع عند الاستلام أو بالكي نت. السعر المعروض شامل التوصيل، والطلب يتم أونلاين بخطوات بسيطة.</p>
   </section>
 
   <section class="section faq">
@@ -438,7 +438,7 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
     <details><summary>هل يتوفر {name} للتوصيل في جميع مناطق الكويت؟</summary><p>نعم، نوصل {name} وجميع منتجاتنا الطازجة لجميع محافظات ومناطق الكويت خلال 40 دقيقة تقريباً، والتوصيل مجاني.</p></details>
     <details><summary>ما هو سعر {name} اليوم؟</summary><p>سعر {name} حالياً {price} د.ك شامل التوصيل المجاني. الأسعار تُحدَّث يومياً على موقعنا.</p></details>
     <details><summary>كيف أطلب {name} أونلاين؟</summary><p>اضغط زر «إضافة للسلة» ثم انتقل لسلة الطلبات وأكمل بياناتك، وسيصلك الطلب طازجاً حتى باب البيت مع الدفع عند الاستلام أو بالكي نت.</p></details>
-    <details><summary>هل المنتجات طازجة فعلاً؟</summary><p>نعم، جميع منتجات مزارع الثنيان تُجهَّز طازجة يومياً من المزرعة وتُوصَّل مباشرة دون تخزين طويل.</p></details>
+    <details><summary>هل المنتجات طازجة فعلاً؟</summary><p>نعم، جميع منتجات مياه أبراج تُجهَّز طازجة يومياً من المزرعة وتُوصَّل مباشرة دون تخزين طويل.</p></details>
   </section>
 
   <section class="section">
@@ -488,7 +488,7 @@ function buyNow(e) {{
 _NOT_FOUND = """<!DOCTYPE html>
 <html lang="ar" dir="rtl"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المنتج غير موجود | مزارع الثنيان</title>
+<title>المنتج غير موجود | مياه أبراج</title>
 <meta name="robots" content="noindex, follow">
 <style>body{{font-family:system-ui;background:#f8f9fa;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}}
 .box{{background:#fff;border-radius:16px;padding:40px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.08)}}
@@ -645,13 +645,13 @@ _PRICES_PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أسعار مزارع الثنيان اليوم {today} — أسعار الروبيان والتين والتمور والدواجن في الكويت</title>
-<meta name="description" content="أسعار منتجات مزارع الثنيان اليوم {today}: سعر الروبيان، التين، تمر الصقعي والخلاص، الحمام الزاجل، البط الفرنسي، دجاج الساسو وسمك البلطي في الكويت. أسعار يومية محدّثة مع توصيل مجاني.">
-<meta name="keywords" content="اسعار الروبيان اليوم الكويت, سعر التين اليوم, اسعار التمور في الكويت, سعر الحمام الزاجل, سعر دجاج الساسو, اسعار البط الفرنسي, سعر سمك البلطي اليوم, عروض مزارع الكويت, مزارع الثنيان">
+<title>أسعار مياه أبراج اليوم {today} — أسعار الروبيان والتين والتمور والدواجن في الكويت</title>
+<meta name="description" content="أسعار منتجات مياه أبراج اليوم {today}: سعر الروبيان، التين، تمر الصقعي والخلاص، الحمام الزاجل، البط الفرنسي، دجاج الساسو وسمك البلطي في الكويت. أسعار يومية محدّثة مع توصيل مجاني.">
+<meta name="keywords" content="اسعار الروبيان اليوم الكويت, سعر التين اليوم, اسعار التمور في الكويت, سعر الحمام الزاجل, سعر دجاج الساسو, اسعار البط الفرنسي, سعر سمك البلطي اليوم, عروض مزارع الكويت, مياه أبراج">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{base}/prices">
 <meta property="og:type" content="website">
-<meta property="og:title" content="أسعار مزارع الثنيان اليوم {today}">
+<meta property="og:title" content="أسعار مياه أبراج اليوم {today}">
 <meta property="og:description" content="أسعار يومية محدّثة لمنتجات المزرعة الطازجة في الكويت مع توصيل مجاني.">
 <meta property="og:url" content="{base}/prices">
 <meta property="og:image" content="{base}/assets/images/og-share.png">
@@ -664,7 +664,7 @@ body {{ background: #f8f9fa; color: #111; }}
 a {{ text-decoration: none; color: inherit; }}
 .header {{ background: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,.07); }}
 .header-inner {{ max-width: 1000px; margin: 0 auto; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }}
-.logo img {{ width: 110px; height: 35px; object-fit: contain; display: block; }}
+.logo img {{ width: 96px; height: 69px; object-fit: contain; display: block; }}
 .cart-link {{ background: #004d7a; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; }}
 .wrap {{ max-width: 1000px; margin: 0 auto; padding: 15px; }}
 .hero {{ background: linear-gradient(135deg, #004d7a, #006ba6); color: #fff; border-radius: 16px; padding: 26px; text-align: center; margin-bottom: 18px; }}
@@ -689,7 +689,7 @@ a {{ text-decoration: none; color: inherit; }}
 <body>
 <header class="header">
   <div class="header-inner">
-    <a class="logo" href="/"><img src="/assets/images/nfc2.png" alt="{site_name}"></a>
+    <a class="logo" href="/"><img src="/assets/images/nfc2.png?v=2" alt="{site_name}"></a>
     <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
   </div>
 </header>
@@ -729,7 +729,7 @@ def render_prices_html(products):
         )
     itemlist = json.dumps({
         '@context': 'https://schema.org', '@type': 'ItemList',
-        'name': 'أسعار مزارع الثنيان اليوم %s' % today,
+        'name': 'أسعار مياه أبراج اليوم %s' % today,
         'itemListElement': [
             {'@type': 'ListItem', 'position': i + 1,
              'url': BASE_URL + product_url(p), 'name': str(p.get('name', ''))}
