@@ -12,6 +12,37 @@
     return productsCache.length ? productsCache : (JSON.parse(localStorage.getItem('allProducts')) || defaultProducts);
   }
 
+  // ── Cloudinary: رفع الصورة وإرجاع رابط https (لا base64 في قاعدة البيانات) ──
+  function cloudinaryCfg() {
+    const env = window.__FIREBASE_ENV__ || {};
+    return { cloud: env.cloudName || '', preset: env.uploadPreset || '' };
+  }
+
+  function uploadToCloudinary(file, onProgress) {
+    const cfg = cloudinaryCfg();
+    if (!cfg.cloud || !cfg.preset) {
+      return Promise.reject(new Error('إعدادات Cloudinary مفقودة (CLOUDINARY_CLOUD_NAME/UPLOAD_PRESET).'));
+    }
+    return new Promise(function (resolve, reject) {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('upload_preset', cfg.preset);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://api.cloudinary.com/v1_1/' + cfg.cloud + '/image/upload');
+      xhr.upload.onprogress = function (e) {
+        if (onProgress && e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+      };
+      xhr.onload = function () {
+        let res = {};
+        try { res = JSON.parse(xhr.responseText); } catch (e) {}
+        if (xhr.status >= 200 && xhr.status < 300 && res.secure_url) resolve(res.secure_url);
+        else reject(new Error((res.error && res.error.message) || ('فشل رفع الصورة (' + xhr.status + ')')));
+      };
+      xhr.onerror = function () { reject(new Error('تعذّر الاتصال بـ Cloudinary')); };
+      xhr.send(form);
+    });
+  }
+
   async function persistProducts(products) {
     productsCache = products;
     if (typeof window.storeSaveProducts === 'function') {
@@ -74,7 +105,9 @@
           <span class="font-extrabold text-emerald-400 text-sm whitespace-nowrap">${product.price} د.ك</span>
         </td>
         <td class="px-4 py-3">
-          <div class="flex items-center gap-2 justify-center">
+          <div class="flex items-center gap-1.5 justify-center">
+            <button title="تحريك لأعلى" class="px-2 py-1.5 rounded-md text-xs font-bold bg-slate-700/60 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:text-white transition-colors ${index === 0 ? 'opacity-30 cursor-not-allowed' : ''}" ${index === 0 ? 'disabled' : ''} onclick="window.adminProducts.move(${index}, -1)">▲</button>
+            <button title="تحريك لأسفل" class="px-2 py-1.5 rounded-md text-xs font-bold bg-slate-700/60 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:text-white transition-colors ${index === products.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}" ${index === products.length - 1 ? 'disabled' : ''} onclick="window.adminProducts.move(${index}, 1)">▼</button>
             <button class="px-3 py-1.5 rounded-md text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white transition-colors" onclick="window.adminProducts.edit(${index})">✏️ تعديل</button>
             <button class="px-3 py-1.5 rounded-md text-xs font-bold bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition-colors" onclick="window.adminProducts.remove(${index})">🗑️ حذف</button>
           </div>
@@ -117,11 +150,13 @@
     const desc = $('product-desc').value.trim();
     const price = parseFloat($('product-price').value).toFixed(3);
     const fileInput = $('product-image');
+    const submitBtn = $('product-submit');
 
     if (!name || !desc || !price) { showError('يرجى ملء جميع الحقول'); return; }
 
-    // تعديل بدون صورة جديدة — نحتفظ بالصورة القديمة
-    if (!fileInput.files[0] && editingProductIndex !== null) {
+    // تعديل بدون صورة جديدة — نحتفظ بالصورة القديمة (رابط Cloudinary)
+    if (!fileInput.files[0]) {
+      if (editingProductIndex === null) { showError('يرجى إضافة صورة للمنتج'); return; }
       const products = getProducts();
       const newProduct = { name, desc, price, img: products[editingProductIndex].img };
       if (products[editingProductIndex]._id) newProduct._id = products[editingProductIndex]._id;
@@ -133,15 +168,13 @@
       return;
     }
 
-    if (!fileInput.files[0] && editingProductIndex === null) {
-      showError('يرجى إضافة صورة للمنتج');
-      return;
-    }
-
     const file = fileInput.files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const newProduct = { name, desc, price, img: e.target.result };
+    const originalLabel = submitBtn.textContent;
+    submitBtn.disabled = true;
+    uploadToCloudinary(file, function (pct) {
+      submitBtn.textContent = 'جارٍ رفع الصورة… ' + pct + '%';
+    }).then(function (url) {
+      const newProduct = { name, desc, price, img: url };
       const products = getProducts();
       if (editingProductIndex !== null) {
         if (products[editingProductIndex]._id) newProduct._id = products[editingProductIndex]._id;
@@ -154,8 +187,24 @@
       persistProducts(products);
       resetForm();
       displayProducts();
-    };
-    reader.readAsDataURL(file);
+    }).catch(function (err) {
+      showError(err.message || 'فشل رفع الصورة');
+    }).then(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    });
+  }
+
+  // ── إعادة الترتيب: تحريك منتج لأعلى/أسفل ثم حفظ الترتيب كاملاً ──
+  function moveProduct(index, delta) {
+    const products = getProducts();
+    const target = index + delta;
+    if (target < 0 || target >= products.length) return;
+    const tmp = products[index];
+    products[index] = products[target];
+    products[target] = tmp;
+    persistProducts(products);
+    displayProducts();
   }
 
   // ── التهيئة ──────────────────────────────────────────────
@@ -176,32 +225,26 @@
     $('product-form').addEventListener('submit', saveProduct);
     $('product-cancel').addEventListener('click', resetForm);
 
-    // تحميل المنتجات من Firestore مع احتياطي محلي
+    // تحميل المنتجات من Firestore — قاعدة البيانات هي المصدر الرسمي،
+    // فلا نرجع للمخزّن المحلي إلا عند تعذّر الاتصال (storeGetProducts يفعله).
     (async function () {
-      const stored = JSON.parse(localStorage.getItem('allProducts')) || [];
-      if (stored.length === 0) localStorage.setItem('allProducts', JSON.stringify(defaultProducts));
       if (typeof window.storeGetProducts === 'function') {
         productsCache = await window.storeGetProducts();
-        if (!productsCache || productsCache.length === 0) {
-          productsCache = JSON.parse(localStorage.getItem('allProducts')) || defaultProducts;
-        }
+      } else {
+        productsCache = JSON.parse(localStorage.getItem('allProducts')) || defaultProducts;
       }
       displayProducts();
       if (typeof window.storeWatchProducts === 'function') {
         window.storeWatchProducts(function (items) {
           productsCache = items;
-          if ($('products-view') && !$('products-view').classList.contains('hidden')) {
-            displayProducts();
-          } else {
-            displayProducts();
-          }
+          displayProducts();
         });
       }
     })();
   }
 
-  // واجهة عامة لأزرار التعديل/الحذف
-  window.adminProducts = { edit: editProduct, remove: deleteProduct };
+  // واجهة عامة لأزرار التعديل/الحذف/الترتيب
+  window.adminProducts = { edit: editProduct, remove: deleteProduct, move: moveProduct };
 
   // التهيئة عند جاهزية DOM
   if (document.readyState === 'loading') {

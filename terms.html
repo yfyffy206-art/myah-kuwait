@@ -17,6 +17,7 @@
         .header-inner { max-width: 1000px; margin: 0 auto; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
         .logo img { width: 96px; height: 69px; object-fit: contain; display: block; }
         .cart-link { background: #004d7a; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+        .menu-btn { background: #f1f3f5; color: #222; border: none; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }
         .wrap { max-width: 800px; margin: 0 auto; padding: 24px 15px 40px; }
         .page-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,.06); padding: 28px 26px; }
         h1 { font-size: 24px; color: #004d7a; margin-bottom: 6px; }
@@ -32,6 +33,7 @@
 <header class="header">
     <div class="header-inner">
         <a class="logo" href="/"><img src="/assets/images/nfc2.png?v=2" alt="مياه أبراج"></a>
+        <button class="menu-btn" id="menuBtn" data-store-menu type="button">القائمة</button>
         <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
     </div>
 </header>
@@ -43,7 +45,7 @@
         <p>مرحباً بك في متجر مياه أبراج. باستخدامك موقعنا أو إتمامك أي طلب، فأنت توافق على الشروط والأحكام التالية. نرجو قراءتها بعناية قبل الطلب.</p>
 
         <h2>1. التعريف بالمتجر</h2>
-        <p>مياه أبراج متجر إلكتروني كويتي متخصص في بيع وتوصيل المنتجات الطازجة (التمور، التين، الروبيان، الدواجن، الأسماك وغيرها) داخل دولة الكويت.</p>
+        <p>مياه أبراج متجر إلكتروني كويتي متخصص في بيع وتوصيل مياه الشرب والمناديل بجميع العبوات داخل دولة الكويت.</p>
 
         <h2>2. الطلبات</h2>
         <ul>
@@ -68,9 +70,9 @@
 
         <h2>5. الاستبدال والاسترجاع</h2>
         <ul>
-            <li>لطبيعة منتجاتنا الطازجة والقابلة للتلف، يُرجى فحص الطلب عند الاستلام مباشرة.</li>
+            <li>يُرجى فحص الطلب عند الاستلام مباشرة للتأكد من مطابقته.</li>
             <li>في حال وصول منتج تالف أو غير مطابق، تواصل معنا فوراً مع صورة للمنتج وسنقوم بالاستبدال أو الاسترداد.</li>
-            <li>لا يمكن إرجاع المنتجات الطازجة بعد قبولها واستلامها بحالة جيدة.</li>
+            <li>لا يمكن إرجاع المنتجات بعد قبولها واستلامها بحالة جيدة.</li>
         </ul>
 
         <h2>6. استخدام الموقع</h2>
@@ -87,5 +89,8 @@
     </div>
 </main>
 <footer class="footer">مياه أبراج © 2026 — <a href="/">الرئيسية</a> · <a href="/prices">أسعار اليوم</a> · <a href="/privacy.html">سياسة الخصوصية</a></footer>
+    <script src="/assets/js/firebase-env.js"></script>
+    <script src="/assets/js/products-local.js"></script>
+    <script defer src="/assets/js/store-menu.js?v=1"></script>
 </body>
 </html>

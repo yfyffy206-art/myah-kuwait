@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <script src="/assets/js/firebase-client.js?v=5"></script>
-    <script src="/assets/js/products-store.js?v=6"></script>
+    <script src="/assets/js/products-store.js?v=7"></script>
     <title>لوحة التحكم -  للمنتجات فقط</title>
     <style>
         * {
@@ -582,14 +582,13 @@
             setTimeout(() => el.style.display = 'none', 3000);
         }
 
-        // عرض المنتجات عند التحميل — من Firestore مع احتياطي محلي
+        // عرض المنتجات عند التحميل — قاعدة البيانات هي المصدر الرسمي
+        // (لا رجوع للمخزّن المحلي إلا عند تعذّر الاتصال، ويفعله storeGetProducts).
         window.addEventListener('DOMContentLoaded', async function() {
-            initializeDefaultProducts();
             if (typeof window.storeGetProducts === 'function') {
                 productsCache = await window.storeGetProducts();
-                if (!productsCache || productsCache.length === 0) {
-                    productsCache = JSON.parse(localStorage.getItem('allProducts')) || defaultProducts;
-                }
+            } else {
+                productsCache = JSON.parse(localStorage.getItem('allProducts')) || defaultProducts;
             }
             displayProducts();
             // تحديث لحظي عند تغيير المنتجات من جهاز آخر

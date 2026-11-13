@@ -119,8 +119,11 @@ def build_local(products, dry_run=False):
 
 
 def cleanup_stale_images(keep, dry_run=False):
-    """يحذف صور المنتجات القديمة التي لم تعد مرجّعة من أي منتج."""
-    if not os.path.isdir(IMG_DIR):
+    """يحذف صور المنتجات القديمة التي لم تعد مرجّعة من أي منتج.
+
+    لا يُنفَّذ إن كانت القائمة بلا أي صورة محلية (keep فارغة) — الحالة الطبيعية
+    بعد نقل الصور إلى Cloudinary، وفيها حذف كل الصور المحلية ليس المقصود."""
+    if not keep or not os.path.isdir(IMG_DIR):
         return 0
     removed = 0
     for name in os.listdir(IMG_DIR):

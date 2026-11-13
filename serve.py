@@ -228,7 +228,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def _serve_dynamic(self, text, ctype, with_body=True, status=200):
         """يخدم محتوى مولّداً ديناميكياً (HTML/XML) مع gzip وكاش قصير."""
-        content = self._rewrite_base(text.encode('utf-8'), getattr(self, '_site_url', None))
+        content = text.encode('utf-8')
+        # حقن الإعدادات من env في الصفحات الديناميكية أيضاً (صفحات المنتج/الأسعار)
+        # استبدالاً للعنصر النائب — مثل _serve تماماً.
+        if ENV_PLACEHOLDER in content:
+            content = content.replace(ENV_PLACEHOLDER, _env_script(include_credentials=True))
+        content = self._rewrite_base(content, getattr(self, '_site_url', None))
         gzipped = None
         if 'gzip' in self.headers.get('Accept-Encoding', ''):
             buf = BytesIO()

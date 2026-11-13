@@ -9,8 +9,8 @@
 
     <!-- 🔍 SEO أساسي -->
     <title>سلة الطلبات | مياه أبراج - مراجعة وإتمام طلبك الكويت</title>
-    <meta name="description" content="سلة طلباتك في مياه أبراج. راجع المنتجات الطازجة التي أضفتها (تين، تمر، روبيان، دواجن، أسماك) وأكمل طلبك مع التوصيل المجاني داخل الكويت خلال 40 دقيقة." />
-    <meta name="keywords" content="سلة الطلبات مياه أبراج, مراجعة طلب الكويت, إتمام الطلب تين تمر روبيان, توصيل طعام الكويت سلة, سلة شراء كويت, اطلب تين اون لاين, اطلب تمر اون لاين, اطلب روبيان الكويت" />
+    <meta name="description" content="سلة طلباتك في مياه أبراج. راجع منتجات المياه والمناديل التي أضفتها وأكمل طلبك مع التوصيل المجاني داخل الكويت." />
+    <meta name="keywords" content="سلة الطلبات مياه أبراج, مراجعة طلب الكويت, إتمام طلب المياه, توصيل مياه الكويت, سلة شراء كويت, اطلب مياه اون لاين, شراء مناديل الكويت" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="مياه أبراج - Abraaj Water" />
     <meta name="language" content="Arabic" />
@@ -27,7 +27,7 @@
     <meta property="og:site_name" content="مياه أبراج" />
     <meta property="og:locale" content="ar_KW" />
     <meta property="og:title" content="سلة الطلبات | مياه أبراج" />
-    <meta property="og:description" content="راجع منتجاتك الطازجة وأكمل طلبك مع التوصيل المجاني داخل الكويت." />
+    <meta property="og:description" content="راجع منتجاتك وأكمل طلبك مع التوصيل المجاني داخل الكويت." />
     <meta property="og:url" content="https://althenayanfarms.app/cartepage.html" />
     <meta property="og:image" content="https://althenayanfarms.app/assets/images/og-share.png" />
     <meta property="og:image:alt" content="سلة طلبات مياه أبراج" />
@@ -35,7 +35,7 @@
     <!-- 🐦 Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="سلة الطلبات | مياه أبراج" />
-    <meta name="twitter:description" content="راجع منتجاتك الطازجة وأكمل طلبك مع التوصيل المجاني داخل الكويت." />
+    <meta name="twitter:description" content="راجع منتجاتك وأكمل طلبك مع التوصيل المجاني داخل الكويت." />
     <meta name="twitter:image" content="https://althenayanfarms.app/assets/images/og-share.png" />
 
     <!-- 🗺️ ربط خريطة الموقع -->
@@ -60,6 +60,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <script src="/assets/js/firebase-client.js?v=5"></script>
+    <script src="/assets/js/products-store.js?v=7"></script>
+    <script defer src="/assets/js/store-menu.js?v=1"></script>
     <script src="/assets/js/cart.js"></script>
     <style>
         * {
@@ -581,7 +583,7 @@
                     <a class="Logo_logo__oq6_b" href="index.html">
                         <img alt="مياه أبراج" src="/assets/images/nfc2.png?v=2" class="Logo_fullLogo__l2rPp">
                     </a>
-                    <button class="CatalogButton_button__wTnA9" onclick="window.location.href='index.html'">
+                    <button class="CatalogButton_button__wTnA9" id="menuBtn">
                         القائمة
                     </button>
                 </div>

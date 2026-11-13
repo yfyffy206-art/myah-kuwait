@@ -350,7 +350,10 @@ _PAGE = """<!DOCTYPE html>
 <script type="application/ld+json">{product_schema}</script>
 <script type="application/ld+json">{breadcrumb_schema}</script>
 <script type="application/ld+json">{faq_schema}</script>
+<script src="/assets/js/firebase-env.js"></script>
+<script src="/assets/js/products-local.js"></script>
 <script src="/assets/js/cart.js"></script>
+<script defer src="/assets/js/store-menu.js?v=1"></script>
 <style>
 * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }}
 body {{ background: #f8f9fa; color: #111; }}
@@ -359,6 +362,8 @@ a {{ text-decoration: none; color: inherit; }}
 .header-inner {{ max-width: 1000px; margin: 0 auto; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }}
 .logo img {{ width: 96px; height: 69px; object-fit: contain; display: block; }}
 .cart-link {{ background: #004d7a; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; }}
+.menu-btn {{ background: #f1f3f5; color: #222; border: none; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }}
+.header-actions {{ display: flex; gap: 8px; align-items: center; }}
 .wrap {{ max-width: 1000px; margin: 0 auto; padding: 15px; }}
 .breadcrumb {{ font-size: 13px; color: #777; margin: 10px 0 18px; }}
 .breadcrumb a {{ color: #004d7a; }}
@@ -399,7 +404,10 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
 <header class="header">
   <div class="header-inner">
     <a class="logo" href="/"><img src="/assets/images/nfc2.png?v=2" alt="{site_name}"></a>
-    <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
+    <div class="header-actions">
+      <button class="menu-btn" id="menuBtn" data-store-menu type="button">القائمة</button>
+      <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
+    </div>
   </div>
 </header>
 <main class="wrap">
@@ -411,7 +419,7 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
     <div class="card-body">
       <h1 itemprop="name">{name}</h1>
       <div class="badges">
-        <span class="badge">✅ طازج يومياً</span>
+        <span class="badge">✅ منتج أصلي</span>
         <span class="badge blue">🚚 توصيل مجاني خلال 40 دقيقة</span>
         <span class="badge blue">🇰🇼 داخل الكويت</span>
       </div>
@@ -429,8 +437,8 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
   </article>
 
   <section class="section">
-    <h2>{name} — توصيل طازج في الكويت من مياه أبراج</h2>
-    <p>اطلب {name} الآن من متجر مياه أبراج الإلكتروني واحصل على توصيل مجاني وسريع خلال 40 دقيقة لجميع مناطق الكويت. {desc_sent} نحرص على وصول منتجاتنا طازجة يومياً من المزرعة إلى باب بيتك، مع إمكانية الدفع عند الاستلام أو بالكي نت. السعر المعروض شامل التوصيل، والطلب يتم أونلاين بخطوات بسيطة.</p>
+    <h2>{name} — توصيل سريع في الكويت من مياه أبراج</h2>
+    <p>اطلب {name} الآن من متجر مياه أبراج الإلكتروني واحصل على توصيل مجاني وسريع خلال 40 دقيقة لجميع مناطق الكويت. {desc_sent} نوصل طلبك مباشرة إلى باب بيتك، مع إمكانية الدفع عند الاستلام أو بالكي نت. السعر المعروض شامل التوصيل، والطلب يتم أونلاين بخطوات بسيطة.</p>
   </section>
 
   <section class="section faq">
@@ -438,24 +446,32 @@ h1 {{ font-size: 24px; color: #111; line-height: 1.5; }}
     <details><summary>هل يتوفر {name} للتوصيل في جميع مناطق الكويت؟</summary><p>نعم، نوصل {name} وجميع منتجاتنا الطازجة لجميع محافظات ومناطق الكويت خلال 40 دقيقة تقريباً، والتوصيل مجاني.</p></details>
     <details><summary>ما هو سعر {name} اليوم؟</summary><p>سعر {name} حالياً {price} د.ك شامل التوصيل المجاني. الأسعار تُحدَّث يومياً على موقعنا.</p></details>
     <details><summary>كيف أطلب {name} أونلاين؟</summary><p>اضغط زر «إضافة للسلة» ثم انتقل لسلة الطلبات وأكمل بياناتك، وسيصلك الطلب طازجاً حتى باب البيت مع الدفع عند الاستلام أو بالكي نت.</p></details>
-    <details><summary>هل المنتجات طازجة فعلاً؟</summary><p>نعم، جميع منتجات مياه أبراج تُجهَّز طازجة يومياً من المزرعة وتُوصَّل مباشرة دون تخزين طويل.</p></details>
+    <details><summary>هل المنتجات أصلية؟</summary><p>نعم، جميع منتجات مياه أبراج أصلية ومطابقة للمواصفات، وتُوصَّل مباشرة إليك.</p></details>
   </section>
 
   <section class="section">
     <h2>تجربة عملائنا مع {site_name}</h2>
-    <p>يصلنا يومياً عشرات الطلبات من جميع محافظات الكويت، ويعود أغلب عملائنا للطلب مرة بعد مرة لأنهم وجدوا منتجاً طازجاً يوصلهم في وقته وبسعر يوفر عليهم مقارنة بالسوق. كثير من عملائنا يخبروننا أن طعم منتجاتنا الطازجة يفرق معهم، وأن سرعة التوصيل خلال 40 دقيقة وفّرت عليهم مشوار السوق — وهذا أكبر دليل على جودة خدمتنا، ونحرص أن يكون {name} الذي يصلك بنفس هذا المستوى في كل مرة.</p>
+    <p>يصلنا يومياً عشرات الطلبات من جميع محافظات الكويت، ويعود أغلب عملائنا للطلب مرة بعد مرة لأنهم وجدوا خدمة سريعة وسعراً يوفر عليهم مشوار السوق. كثير من عملائنا يخبروننا أن التوصيل خلال 40 دقيقة وفّر عليهم الوقت والجهد — وهذا أكبر دليل على جودة خدمتنا، ونحرص أن يكون {name} الذي يصلك بنفس هذا المستوى في كل مرة.</p>
   </section>
 
   <section class="section">
-    <h2>منتجات طازجة أخرى قد تعجبك</h2>
+    <h2>منتجات أخرى قد تعجبك</h2>
     <div class="related">{related_html}</div>
   </section>
 </main>
-<footer class="footer">{site_name} — توصيل المنتجات الطازجة في الكويت 🇰🇼<br>
+<footer class="footer">{site_name} — توصيل سريع في الكويت 🇰🇼<br>
 <a href="/prices" style="color:#004d7a">أسعار منتجاتنا اليوم</a> · <a href="/terms.html" style="color:#004d7a">الشروط والأحكام</a> · <a href="/privacy.html" style="color:#004d7a">سياسة الخصوصية</a> · <a href="/returns.html" style="color:#004d7a">سياسة الاسترجاع</a></footer>
 <div class="toast" id="toast">✅ تمت الإضافة إلى السلة</div>
 <script>
 var PRODUCT = {product_js};
+var __SITE_NAME = {site_name_js};
+var __AR_TRANSLIT = {{ 'ا':'a','أ':'a','إ':'a','آ':'a','ٱ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'dh','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'h','ء':'','ئ':'y','ؤ':'w','٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9' }};
+function __slugify(name) {{
+  var t = '';
+  for (var i = 0; i < (name || '').length; i++) {{ var ch = name[i]; t += (__AR_TRANSLIT[ch] !== undefined ? __AR_TRANSLIT[ch] : ch); }}
+  t = t.replace(/[^A-Za-z0-9\s-]/g, '').trim().toLowerCase().replace(/[\s_]+/g, '-');
+  return t || 'product';
+}}
 // إضافة للسلة مكتفية بذاتها: تستخدم cart.js إن كان محمّلاً، وإلا تكتب
 // مباشرة في localStorage بنفس البنية — فلا يفشل الزر إن تأخّر/فشل تحميل cart.js.
 function cartAddSelf(product, qty) {{
@@ -480,6 +496,42 @@ function buyNow(e) {{
   cartAddSelf(PRODUCT, 1);
   // يُترك التنقّل الافتراضي للرابط إلى /cartepage.html ليكمل الطلب
 }}
+// ── مزامنة صفحة المنتج مع قاعدة البيانات ──
+// تُولَّد الصفحة عند البناء (SSR)، لكن السعر والصور والمنتجات ذات الصلة قد تتغيّر
+// من اللوحة بعد التوليد. نحدّثها من نفس مصدر الموقع الرئيسي ليتطابق العرض.
+function refreshFromDb() {{
+  if (!PRODUCT._id) return;
+  var ensure = (window.StoreLive && window.StoreLive.ensure) ? window.StoreLive.ensure() : Promise.resolve();
+  ensure.then(function () {{
+    if (typeof window.storeGetProducts !== 'function') return;
+    return window.storeGetProducts().then(function (all) {{
+      if (!Array.isArray(all) || !all.length) return;
+      var mine = null;
+      for (var i = 0; i < all.length; i++) {{ if (all[i] && all[i]._id === PRODUCT._id) {{ mine = all[i]; break; }} }}
+      if (mine) {{
+        PRODUCT.name = mine.name; PRODUCT.desc = mine.desc; PRODUCT.price = mine.price; PRODUCT.img = mine.img;
+        var h1 = document.querySelector('article h1'); if (h1) h1.textContent = mine.name;
+        var d = document.querySelector('.desc'); if (d) d.textContent = mine.desc;
+        var pv = document.querySelector('.price span[itemprop="price"]');
+        if (pv) {{ pv.textContent = mine.price; pv.setAttribute('content', mine.price); }}
+        var im = document.querySelector('.card-img img'); if (im) im.src = mine.img;
+        document.title = mine.name + ' بسعر ' + mine.price + ' د.ك فقط | توصيل مجاني في الكويت - ' + __SITE_NAME;
+      }}
+      var rel = document.querySelector('.related');
+      if (rel) {{
+        var others = all.filter(function (p) {{ return p && p._id !== PRODUCT._id; }}).slice(0, 4);
+        if (others.length) rel.innerHTML = others.map(function (p) {{
+          var u = '/product/' + p._id + '/' + __slugify(p.name);
+          return '<a class="rel-card" href="' + u + '"><img src="' + p.img + '" alt="" loading="lazy">' +
+                 '<div class="rel-body"><div class="rel-name">' + p.name + '</div>' +
+                 '<div class="rel-price">' + p.price + ' د.ك</div></div></a>';
+        }}).join('');
+      }}
+    }});
+  }}).catch(function (e) {{ console.warn('product refresh failed:', e && e.message); }});
+}}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', refreshFromDb);
+else refreshFromDb();
 </script>
 </body>
 </html>
@@ -565,6 +617,7 @@ def render_product_html(product, all_products):
     ) or '<p>تصفح بقية منتجاتنا من <a href="/" style="color:#004d7a">الصفحة الرئيسية</a>.</p>'
 
     product_js = json.dumps({
+        '_id': str(product.get('_id') or ''),
         'name': name, 'desc': desc, 'price': str(product.get('price', '0')),
         'img': product_img_url(product) if product.get('img') else '/assets/images/nfc2.png'
     }, ensure_ascii=False)
@@ -579,6 +632,7 @@ def render_product_html(product, all_products):
         breadcrumb_schema=escape(breadcrumb_schema, quote=False),
         faq_schema=escape(faq_schema, quote=False),
         related_html=related_html, product_js=product_js,
+        site_name_js=json.dumps(SITE_NAME, ensure_ascii=False),
     )
 
 
@@ -645,14 +699,14 @@ _PRICES_PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أسعار مياه أبراج اليوم {today} — أسعار الروبيان والتين والتمور والدواجن في الكويت</title>
-<meta name="description" content="أسعار منتجات مياه أبراج اليوم {today}: سعر الروبيان، التين، تمر الصقعي والخلاص، الحمام الزاجل، البط الفرنسي، دجاج الساسو وسمك البلطي في الكويت. أسعار يومية محدّثة مع توصيل مجاني.">
-<meta name="keywords" content="اسعار الروبيان اليوم الكويت, سعر التين اليوم, اسعار التمور في الكويت, سعر الحمام الزاجل, سعر دجاج الساسو, اسعار البط الفرنسي, سعر سمك البلطي اليوم, عروض مزارع الكويت, مياه أبراج">
+<title>أسعار مياه أبراج اليوم {today} — مياه ومناديل في الكويت</title>
+<meta name="description" content="أسعار منتجات مياه أبراج اليوم {today}: مياه الشرب بجميع الأحجام (200مل، 330مل، 500مل، 1.5لتر، 5 جالون) والمناديل — أسعار يومية محدّثة مع توصيل مجاني داخل الكويت.">
+<meta name="keywords" content="اسعار مياه أبراج اليوم, اسعار الماء في الكويت, سعر كرتون المياه, مياه 200 مل, مياه 330 مل, مياه 500 مل, مياه 1.5 لتر, مياه 5 جالون, مناديل أبراج, توصيل مياه الكويت">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{base}/prices">
 <meta property="og:type" content="website">
 <meta property="og:title" content="أسعار مياه أبراج اليوم {today}">
-<meta property="og:description" content="أسعار يومية محدّثة لمنتجات المزرعة الطازجة في الكويت مع توصيل مجاني.">
+<meta property="og:description" content="أسعار يومية محدّثة لمياه الشرب والمناديل في الكويت مع توصيل مجاني.">
 <meta property="og:url" content="{base}/prices">
 <meta property="og:image" content="{base}/assets/images/og-share.png">
 <meta name="theme-color" content="#004d7a">
@@ -666,6 +720,8 @@ a {{ text-decoration: none; color: inherit; }}
 .header-inner {{ max-width: 1000px; margin: 0 auto; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }}
 .logo img {{ width: 96px; height: 69px; object-fit: contain; display: block; }}
 .cart-link {{ background: #004d7a; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; }}
+.menu-btn {{ background: #f1f3f5; color: #222; border: none; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }}
+.header-actions {{ display: flex; gap: 8px; align-items: center; }}
 .wrap {{ max-width: 1000px; margin: 0 auto; padding: 15px; }}
 .hero {{ background: linear-gradient(135deg, #004d7a, #006ba6); color: #fff; border-radius: 16px; padding: 26px; text-align: center; margin-bottom: 18px; }}
 .hero h1 {{ font-size: 23px; margin-bottom: 8px; }}
@@ -690,23 +746,31 @@ a {{ text-decoration: none; color: inherit; }}
 <header class="header">
   <div class="header-inner">
     <a class="logo" href="/"><img src="/assets/images/nfc2.png?v=2" alt="{site_name}"></a>
-    <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
+    <div class="header-actions">
+      <button class="menu-btn" id="menuBtn" data-store-menu type="button">القائمة</button>
+      <a class="cart-link" href="/cartepage.html">🛒 سلة الطلبات</a>
+    </div>
   </div>
 </header>
 <main class="wrap">
   <div class="hero">
-    <h1>أسعار منتجات المزرعة اليوم في الكويت</h1>
-    <p>أسعار محدّثة يومياً لجميع منتجات {site_name} الطازجة: روبيان، تين، تمور، حمام، بط، دجاج وسمك — جميع الأسعار شاملة التوصيل المجاني لجميع مناطق الكويت.</p>
+    <h1>أسعار مياه أبراج اليوم في الكويت</h1>
+    <p>أسعار محدّثة يومياً لمياه الشرب والمناديل من {site_name}: مياه 200مل و330مل و500مل و1.5 لتر و5 جالون، والمناديل — جميع الأسعار شاملة التوصيل المجاني لجميع مناطق الكويت.</p>
     <span class="date-pill">📅 {today}</span>
   </div>
-  <div class="grid">{cards_html}</div>
+  <div class="grid" id="prices-grid">{cards_html}</div>
   <section class="note">
     <h2>كيف تقرأ أسعار اليوم؟</h2>
-    <p>الأسعار المعروضة أعلاه هي أسعار اليوم {today} وتُحدَّث مباشرة من المزرعة. جميع الأسعار بالدينار الكويتي وتشمل التوصيل المجاني خلال 40 دقيقة تقريباً لأي منطقة داخل الكويت، مع إمكانية الدفع عند الاستلام أو بالكي نت. اضغط على أي منتج للاطلاع على تفاصيله وطلبه أونلاين مباشرة.</p>
+    <p>الأسعار المعروضة أعلاه هي أسعار اليوم {today} وتُحدَّث تلقائياً من قاعدة بيانات المتجر. جميع الأسعار بالدينار الكويتي وتشمل التوصيل المجاني خلال 40 دقيقة تقريباً لأي منطقة داخل الكويت، مع إمكانية الدفع عند الاستلام أو بالكي نت. اضغط على أي منتج للاطلاع على تفاصيله وطلبه أونلاين مباشرة.</p>
   </section>
 </main>
-<footer class="footer">{site_name} — أسعار طازجة يومياً في الكويت 🇰🇼<br>
+<footer class="footer">{site_name} — أسعار يومية محدّثة في الكويت 🇰🇼<br>
 <a href="/" style="color:#004d7a">الرئيسية</a> · <a href="/terms.html" style="color:#004d7a">الشروط والأحكام</a> · <a href="/privacy.html" style="color:#004d7a">سياسة الخصوصية</a></footer>
+<script id="prices-i18n" type="application/json">{{"free": "شامل التوصيل المجاني ✅", "unavailable": "لا توجد منتجات حالياً"}}</script>
+<script src="/assets/js/firebase-env.js"></script>
+<script src="/assets/js/products-local.js"></script>
+<script defer src="/assets/js/store-menu.js?v=1"></script>
+<script defer src="/assets/js/live-prices.js?v=1"></script>
 </body>
 </html>
 """

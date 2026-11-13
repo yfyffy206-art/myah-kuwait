@@ -92,10 +92,24 @@ PUBLIC_KEYS = ('apiKey', 'authDomain', 'databaseURL', 'projectId',
                'storageBucket', 'messagingSenderId', 'appId', 'measurementId')
 
 
+def cloudinary_env():
+    """إعدادات Cloudinary: الاسم والـpreset فقط (عامّان بطبيعتهما).
+
+    الرفع من المتصفح يستخدم preset **غير موقّع** (unsigned) فلا يصل api_secret
+    إلى المتصفح أبداً. المفتاح والسرّ يبقيان على الخادم لعمليات الإدارة فقط.
+    """
+    return {
+        'cloudName': _get('CLOUDINARY_CLOUD_NAME'),
+        'uploadPreset': _get('CLOUDINARY_UPLOAD_PRESET'),
+    }
+
+
 def public_env():
     """الإعدادات العامة فقط — تُحقن في صفحات لوحة التحكم (بلا كلمة سر)."""
     env = firebase_env()
-    return {k: env.get(k, '') for k in PUBLIC_KEYS}
+    out = {k: env.get(k, '') for k in PUBLIC_KEYS}
+    out.update(cloudinary_env())
+    return out
 
 
 def client_env():
