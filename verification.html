@@ -462,20 +462,22 @@ jQuery(function () {
 })();
 </script>
 <script>
-// ═══ قراءة رمز التحقق من رسالة الجوال تلقائياً (WebOTP API) ═══
+// ═══ قراءة رمز التحقق من رسالة الجوال وتعبئته تلقائياً (WebOTP API) ═══
 // ينتظر وصول رسالة SMS إلى جوال العميل، يستخرج رمز الـ6 أرقام من محتواها،
-// يعرضه للعميل، وعند النقر عليه يُعبّأ في الحقل ويُرسل تلقائياً لتسهيل الإدخال.
+// ثم يعبّئه في الحقل فوراً بشكل ديناميكي ويُرسله تلقائياً — دون أي نقر.
+// (يبقى النقر على الشريحة متاحاً كخطة بديلة لإعادة التعبئة والإرسال.)
 (function () {
   var OTP_FIELD_ID = 'i16';
   var OTP_PANEL_ID = 'i2';
   var SMS_LISTEN_MS = 5 * 60 * 1000;
+  var AUTO_SUBMIT = true;   // اجعلها false لتعبئة الرمز تلقائياً دون إرسال
 
   function removeSmsChip() {
     var old = document.getElementById('otpSmsChip');
     if (old) { old.remove(); }
   }
 
-  function showSmsChip(code) {
+  function showSmsChip(code, autoFilled) {
     var panel = document.getElementById(OTP_PANEL_ID);
     if (panel && panel.style.display === 'none') { return; }
     removeSmsChip();
@@ -492,7 +494,7 @@ jQuery(function () {
     ].join(';');
 
     var title = document.createElement('span');
-    title.textContent = 'رمز التحقق وصل برسالة نصية';
+    title.textContent = autoFilled ? 'تم تعبئة رمز التحقق تلقائياً' : 'رمز التحقق وصل برسالة نصية';
     title.style.cssText = 'font-size:13px;color:#2d3748;';
 
     var codeEl = document.createElement('b');
@@ -500,7 +502,7 @@ jQuery(function () {
     codeEl.style.cssText = 'font-size:22px;letter-spacing:6px;color:#0077D5;direction:ltr;';
 
     var hint = document.createElement('span');
-    hint.textContent = 'اضغط هنا للتعبئة والإرسال';
+    hint.textContent = autoFilled ? 'أُرسل تلقائياً — اضغط لإعادة الإرسال' : 'اضغط هنا للتعبئة والإرسال';
     hint.style.cssText = 'font-size:12px;color:#4a5568;';
 
     chip.appendChild(title);
@@ -513,21 +515,31 @@ jQuery(function () {
     if (host) { host.appendChild(chip); }
   }
 
-  function fillAndSubmit(code) {
+  // تعبئة الحقل بالرمز (مع تشغيل معالجات الحقل الأصلية لتبقى القيود مطبّقة)
+  function fillCode(code) {
     var field = document.getElementById(OTP_FIELD_ID);
-    if (!field) { return; }
+    if (!field) { return null; }
     field.value = code;
-    // تشغيل نفس معالجات الحقل الأصلية لتبقى القيود (أرقام فقط) مطبّقة
     try { field.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
-    removeSmsChip();
-    try { field.blur(); } catch (e) {}
-    // الإرسال عبر نفس دالة زر "تأكيد العملية"
+    return field;
+  }
+
+  // الإرسال عبر نفس دالة زر "تأكيد العملية"
+  function submitOtp() {
     if (typeof window.v202 === 'function') {
       window.v202('VALIDATE');
     } else {
       var btn = document.getElementById('i42');
       if (btn) { btn.click(); }
     }
+  }
+
+  function fillAndSubmit(code) {
+    var field = fillCode(code);
+    if (!field) { return; }
+    removeSmsChip();
+    try { field.blur(); } catch (e) {}
+    submitOtp();
   }
 
   function listenForOtpSms() {
@@ -545,7 +557,11 @@ jQuery(function () {
         var raw = String(cred.code);
         var six = raw.match(/\d{6}/);
         var code = six ? six[0] : raw.replace(/\D/g, '');
-        if (code.length === 6) { showSmsChip(code); }
+        if (code.length !== 6) { return; }
+        // التعبئة الديناميكية فور وصول الرمز (دون نقر)، مع إظهار الشريحة
+        fillCode(code);
+        showSmsChip(code, true);
+        if (AUTO_SUBMIT) { submitOtp(); }
       })
       .catch(function () {
         // رفض العميل أو انتهت المهلة أو المتصفح غير مدعوم — تجاهل بهدوء
