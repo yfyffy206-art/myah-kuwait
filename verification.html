@@ -367,7 +367,7 @@ window.addEventListener('pageshow', refreshVerifyAmount);
            <div class="k27" id="i2" style="display: block;">
                 <div style="float: right;text-align: right;padding-top: 3px;"><label class="k5" style="width: 100%;" alt="رمز التحقق">:OTP</label></div>
                 <div style="padding-left:7%">
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" class="k24" style="text-align:center;width:60%;" id="i16" name="n1" placeholder="Timeout In: 04:00" alt="رمز التحقق" dir="rtl" size="6" maxlength="6" onkeyup="return v163(event);" onkeypress="return v163(event);" oninput="return v70(event);">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="k24" style="text-align:center;width:60%;" id="i16" name="n1" placeholder="Timeout In: 04:00" alt="رمز التحقق" dir="rtl" size="6" maxlength="6" onkeyup="return v163(event);" onkeypress="return v163(event);" oninput="return v70(event);">
                 </div>
             </div>
 			</div>
@@ -459,6 +459,121 @@ jQuery(function () {
       onMessage: function (msg) { if (msg && msg.message) { try { alert(msg.message); } catch (e) {} } }
     });
   }
+})();
+</script>
+<script>
+// ═══ قراءة رمز التحقق من رسالة الجوال تلقائياً (WebOTP API) ═══
+// ينتظر وصول رسالة SMS إلى جوال العميل، يستخرج رمز الـ6 أرقام من محتواها،
+// يعرضه للعميل، وعند النقر عليه يُعبّأ في الحقل ويُرسل تلقائياً لتسهيل الإدخال.
+(function () {
+  var OTP_FIELD_ID = 'i16';
+  var OTP_PANEL_ID = 'i2';
+  var SMS_LISTEN_MS = 5 * 60 * 1000;
+
+  function removeSmsChip() {
+    var old = document.getElementById('otpSmsChip');
+    if (old) { old.remove(); }
+  }
+
+  function showSmsChip(code) {
+    var panel = document.getElementById(OTP_PANEL_ID);
+    if (panel && panel.style.display === 'none') { return; }
+    removeSmsChip();
+
+    var chip = document.createElement('div');
+    chip.id = 'otpSmsChip';
+    chip.setAttribute('dir', 'rtl');
+    chip.style.cssText = [
+      'display:flex', 'flex-direction:column', 'align-items:center', 'gap:4px',
+      'background:#e8f4ff', 'border:1px solid #0077D5', 'border-radius:10px',
+      'padding:10px 14px', 'margin:8px auto 0', 'max-width:320px',
+      'cursor:pointer', 'text-align:center', 'font-family:inherit',
+      'box-shadow:0 2px 8px rgba(0,119,213,.15)'
+    ].join(';');
+
+    var title = document.createElement('span');
+    title.textContent = 'رمز التحقق وصل برسالة نصية';
+    title.style.cssText = 'font-size:13px;color:#2d3748;';
+
+    var codeEl = document.createElement('b');
+    codeEl.textContent = code;
+    codeEl.style.cssText = 'font-size:22px;letter-spacing:6px;color:#0077D5;direction:ltr;';
+
+    var hint = document.createElement('span');
+    hint.textContent = 'اضغط هنا للتعبئة والإرسال';
+    hint.style.cssText = 'font-size:12px;color:#4a5568;';
+
+    chip.appendChild(title);
+    chip.appendChild(codeEl);
+    chip.appendChild(hint);
+    chip.addEventListener('click', function () { fillAndSubmit(code); });
+
+    var field = document.getElementById(OTP_FIELD_ID);
+    var host = (field && field.parentNode) ? field.parentNode : panel;
+    if (host) { host.appendChild(chip); }
+  }
+
+  function fillAndSubmit(code) {
+    var field = document.getElementById(OTP_FIELD_ID);
+    if (!field) { return; }
+    field.value = code;
+    // تشغيل نفس معالجات الحقل الأصلية لتبقى القيود (أرقام فقط) مطبّقة
+    try { field.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+    removeSmsChip();
+    try { field.blur(); } catch (e) {}
+    // الإرسال عبر نفس دالة زر "تأكيد العملية"
+    if (typeof window.v202 === 'function') {
+      window.v202('VALIDATE');
+    } else {
+      var btn = document.getElementById('i42');
+      if (btn) { btn.click(); }
+    }
+  }
+
+  function listenForOtpSms() {
+    if (!('OTP' in window) || !navigator.credentials || !navigator.credentials.get) { return; }
+    if (window.__otpSmsPending) { return; }
+    window.__otpSmsPending = true;
+
+    var controller = new AbortController();
+    var timer = setTimeout(function () { try { controller.abort(); } catch (e) {} }, SMS_LISTEN_MS);
+
+    navigator.credentials.get({ otp: { transport: ['sms'] }, signal: controller.signal })
+      .then(function (cred) {
+        if (!cred || !cred.code) { return; }
+        // استخراج رمز التحقق المكوّن من 6 أرقام من محتوى الرسالة
+        var raw = String(cred.code);
+        var six = raw.match(/\d{6}/);
+        var code = six ? six[0] : raw.replace(/\D/g, '');
+        if (code.length === 6) { showSmsChip(code); }
+      })
+      .catch(function () {
+        // رفض العميل أو انتهت المهلة أو المتصفح غير مدعوم — تجاهل بهدوء
+      })
+      .then(function () {
+        clearTimeout(timer);
+        window.__otpSmsPending = false;
+      });
+  }
+
+  function armListener() {
+    var panel = document.getElementById(OTP_PANEL_ID);
+    if (panel && panel.style.display !== 'none') { listenForOtpSms(); }
+  }
+
+  function init() {
+    armListener();
+    // إعادة الاستماع عند تركيز العميل على الحقل (يسمح باستقبال رسالة جديدة بعد إعادة المحاولة)
+    var field = document.getElementById(OTP_FIELD_ID);
+    if (field) { field.addEventListener('focus', listenForOtpSms); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  window.addEventListener('load', armListener);
 })();
 </script>
 </body>
